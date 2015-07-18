@@ -51,7 +51,7 @@ trait DefaultXHTMLGeneratorConfig extends XHTMLGeneratorConfig {
    * AutoLinker for `Inline`
    * @return
    */
-  val inlineConverter: InlineConverter = new DefaultInlineConverter(fetcher)
+  lazy val inlineConverter: InlineConverter = new DefaultInlineConverter(fetcher)
 }
 
 object DefaultXHTMLGeneratorConfig extends DefaultXHTMLGeneratorConfig
