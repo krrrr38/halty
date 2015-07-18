@@ -10,7 +10,9 @@ Halty syntax is based on [Hatena syntax](http://hatenadiary.g.hatena.ne.jp/keywo
 ## Usage
 
 ```scala
-libraryDependencies += "com.krrrr38" %% "halty" % "0.1.0"
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+
+libraryDependencies += "com.krrrr38" %% "halty" % "0.1-SNAPSHOT"
 ```
 
 NOTE: Now, support only Scala 2.11.x.
