@@ -3,7 +3,7 @@ import sbt.Keys._
 import com.typesafe.sbt.SbtScalariform.scalariformSettings
 
 object HaltyBuild extends Build {
-
+  import xerial.sbt.Sonatype.SonatypeKeys.sonatypeProfileName
   import scala.Console.{CYAN, RESET}
 
   object Version {
@@ -18,7 +18,7 @@ object HaltyBuild extends Build {
     settings = Defaults.coreDefaultSettings ++ scalariformSettings ++ Seq(
       name := "halty",
       organization := "com.krrrr38",
-      version := "0.1-SNAPSHOT",
+      version := "0.1.0",
       scalaVersion := "2.11.7",
       scalacOptions ++= (
         "-deprecation" ::
@@ -45,5 +45,41 @@ object HaltyBuild extends Build {
       ),
       resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
     )
+  )
+
+  lazy val publishSettings = Seq(
+    isSnapshot := false,
+    sonatypeProfileName := "com.krrrr38",
+    pomExtra := {
+      <url>http://github.com/krrrr38/halty</url>
+          <scm>
+            <url>git@github.com:krrrr38/halty.git</url>
+            <connection>scm:git:git@github.com:krrrr38/halty.git</connection>
+          </scm>
+          <licenses>
+            <license>
+              <name>MIT License</name>
+              <url>http://www.opensource.org/licenses/mit-license.php</url>
+              <distribution>repo</distribution>
+            </license>
+          </licenses>
+          <developers>
+            <developer>
+              <id>krrrr38</id>
+              <name>Ken Kaizu</name>
+              <url>http://www.krrrr38.com</url>
+            </developer>
+          </developers>
+    },
+    publishArtifact in Test := false,
+    publishMavenStyle := true,
+    pomIncludeRepository := { _ => false },
+    publishTo <<= version { (v: String) =>
+      val nexus = "https://oss.sonatype.org/"
+      if (v.trim.endsWith("SNAPSHOT"))
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+      else
+        Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+    }
   )
 }
