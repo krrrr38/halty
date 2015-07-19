@@ -35,12 +35,12 @@ trait DefaultXHTMLGeneratorConfig extends XHTMLGeneratorConfig {
   override def wrap(xhtml: Node) = xhtml
 
   /**
-   * class for `SuperPre`
+   * class for `SuperPre` based on [[http://prismjs.com/ Prism]].
    * @param language
    * @return
    */
   override def codeClass(language: Option[String]): Option[String] =
-    language.map(lang => s"code lang-$lang").orElse(Some("code"))
+    language.map(lang => s"code language-$lang").orElse(Some("code"))
 
   /**
    * get title for `HttpAutoTitle`.

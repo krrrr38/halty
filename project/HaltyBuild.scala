@@ -18,7 +18,7 @@ object HaltyBuild extends Build {
     settings = Defaults.coreDefaultSettings ++ scalariformSettings ++ Seq(
       name := "halty",
       organization := "com.krrrr38",
-      version := "0.1.1",
+      version := "0.1.2",
       scalaVersion := "2.11.7",
       scalacOptions ++= (
         "-deprecation" ::

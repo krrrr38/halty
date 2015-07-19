@@ -12,7 +12,7 @@ Halty syntax is based on [Hatena syntax](http://hatenadiary.g.hatena.ne.jp/keywo
 ```scala
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
-libraryDependencies += "com.krrrr38" %% "halty" % "0.1.1-SNAPSHOT"
+libraryDependencies += "com.krrrr38" %% "halty" % "0.1.2-SNAPSHOT"
 ```
 
 NOTE: Now, support only Scala 2.11.x.

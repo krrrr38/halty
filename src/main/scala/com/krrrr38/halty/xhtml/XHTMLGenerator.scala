@@ -86,7 +86,7 @@ class XHTMLGenerator(config: XHTMLGeneratorConfig) {
 
   private[this] def superPreToXHTML(superpre: SuperPre): Node = {
     val preClass = config.codeClass(superpre.lang)
-    <pre class={ preClass.orNull }>{ superpre.content }</pre>
+    <pre><code class={ preClass.orNull }>{ superpre.content }</code></pre>
   }
 
   private[this] def tableToXHTML(table: Table): Node =

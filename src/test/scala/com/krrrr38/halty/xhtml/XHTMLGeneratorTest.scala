@@ -59,9 +59,9 @@ class XHTMLGeneratorTest extends Specification {
     }
     "superpre" in {
       generator.generate(List(SuperPre("text"))) must
-        ==/("<pre class=\"code\">text</pre>")
+        ==/("<pre><code class=\"code\">text</code></pre>")
       generator.generate(List(SuperPre("text", Some("java")))) must
-        ==/("<pre class=\"code lang-java\">text</pre>")
+        ==/("<pre><code class=\"code language-java\">text</code></pre>")
     }
     "table" in {
       generator.generate(List(Table(List(
