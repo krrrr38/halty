@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/krrrr38/halty.png)](http://travis-ci.org/krrrr38/halty)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.11)
+[![License: MIT](http://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
 
 Text-to-HTML converter with Halty syntax.
 
