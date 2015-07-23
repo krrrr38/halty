@@ -43,7 +43,9 @@ val input =
     |case class Person(name: String)
     |||<
     """.stripMargin
-val res = XHTMLGenerator.generate(Halty(input))
+val ast = Halty(input)
+XHTMLGenerator.generate(ast)    # generate xhtml
+MarkdownGenerator.generate(ast) # generate markdown
 ```
 
 ## Contribution

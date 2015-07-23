@@ -15,7 +15,9 @@ case class BlockQuote(blocks: List[Block], http: Option[Http] = None) extends Bl
 case class DL(items: List[DLItem]) extends Block
 case class DLItem(definition: String, detail: Inline) extends Chunk
 
-sealed trait ListTag extends Block
+sealed trait ListTag extends Block {
+  val level: Int
+}
 case class OL(level: Int, items: List[LI]) extends ListTag
 case class UL(level: Int, items: List[LI]) extends ListTag
 case class LI(inline: Inline, nest: Option[ListTag]) extends Chunk

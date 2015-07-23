@@ -7,7 +7,7 @@ import org.specs2.mutable.Specification
 
 class HaltyCheck extends Specification with ScalaCheck {
   override def is = s2"""
-  Haltyapply must success with
+  Halty.apply must success with
     any input strings           $anyinput
   """
 

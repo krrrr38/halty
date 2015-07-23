@@ -3,17 +3,51 @@ package com.krrrr38.halty.xhtml
 import com.krrrr38.halty.{ Inline, Fetcher }
 import org.specs2.mutable.Specification
 
-import scala.xml.Utility
+import scala.xml.{ Group, Text, Utility }
 
-class DefaultInlineConverterTest extends Specification {
+class XHTMLInlineConverterTest extends Specification {
   val identityFetcher = new Fetcher {
     override def fetchTitle(url: String) = url
   }
-  val converter = new DefaultInlineConverter(identityFetcher)
+  val converter = new XHTMLInlineConverter(identityFetcher)
 
   def escape(text: String) = Utility.escape(text)
 
-  "convert" should {
+  "XHTMLInlineConverterTest" should {
+    "wrap" in {
+      converter.wrap(Seq(Text("a"), Text("b"))) must_=== Group(Seq(Text("a"), Text("b")))
+    }
+    "text" in {
+      converter.text("aaa") must ==/("aaa")
+      converter.text("  aaa") must ==/("  aaa")
+      converter.text("a aa  ") must ==/("aaa  ")
+    }
+    "escape text" in {
+      val raw = "aaa > < & ' bbb"
+      converter.text(raw) must ==/(escape(raw))
+    }
+    "image" in {
+      val image = "http://hidamari.local/yuno.png"
+      converter.image(image, None, None) must
+        ==/(s"""<a href="${escape(image)}"><img src="${escape(image)}" alt="${escape(image)}"/></a>""")
+      converter.image(image, None, Some("200")) must
+        ==/(s"""<a href="${escape(image)}"><img src="${escape(image)}" alt="${escape(image)}" height="200"/></a>""")
+      converter.image(image, Some("200"), None) must
+        ==/(s"""<a href="${escape(image)}"><img src="${escape(image)}" alt="${escape(image)}" width="200"/></a>""")
+    }
+    "http" in {
+      val url = "http://hidamari.local"
+      val title = "hidamari sketch"
+      converter.http(url, title) must ==/(s"""<a href="${escape(url)}">${escape(title)}</a>""")
+      val urlWithParameter = "http://hidamari.local/foo/bar?aaa=a%20a&hoge=fuga"
+      converter.http(urlWithParameter, title) must ==/(s"""<a href="${escape(urlWithParameter)}">${escape(title)}</a>""")
+    }
+    "mail" in {
+      val mail = "yuno@hidamari.local"
+      converter.mail(mail) must ==/(s"""<a href="mailto:${escape(mail)}">${escape(mail)}</a>""")
+    }
+
+    // convert ///////////////////////////////////////////////////////////////////////////////////
     "text" in {
       converter.convert(Inline("aaa")) must ==/("aaa")
       converter.convert(Inline("  aaa")) must ==/("  aaa")

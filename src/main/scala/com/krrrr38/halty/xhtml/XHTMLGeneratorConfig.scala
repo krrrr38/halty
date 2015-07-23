@@ -1,6 +1,6 @@
 package com.krrrr38.halty.xhtml
 
-import com.krrrr38.halty.{ GeneratorConfig, DefaultJsoupFetcher, Fetcher }
+import com.krrrr38.halty._
 
 import scala.xml.Node
 
@@ -21,9 +21,8 @@ trait XHTMLGeneratorConfig extends GeneratorConfig {
 
   /**
    * AutoLinker for `Inline`.
-   * @return
    */
-  val inlineConverter: InlineConverter
+  val inlineConverter: InlineConverter[Node]
 }
 
 trait DefaultXHTMLGeneratorConfig extends XHTMLGeneratorConfig {
@@ -49,9 +48,8 @@ trait DefaultXHTMLGeneratorConfig extends XHTMLGeneratorConfig {
 
   /**
    * AutoLinker for `Inline`
-   * @return
    */
-  lazy val inlineConverter: InlineConverter = new DefaultInlineConverter(fetcher)
+  lazy val inlineConverter: InlineConverter[Node] = new XHTMLInlineConverter(fetcher)
 }
 
 object DefaultXHTMLGeneratorConfig extends DefaultXHTMLGeneratorConfig
