@@ -1,6 +1,7 @@
 # Halty
 
 [![Build Status](https://secure.travis-ci.org/krrrr38/halty.png)](http://travis-ci.org/krrrr38/halty)
+[![codecov.io](http://codecov.io/github/krrrr38/halty/coverage.svg?branch=master)](http://codecov.io/github/krrrr38/halty?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.11)
 [![License: MIT](http://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
 
