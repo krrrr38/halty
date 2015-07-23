@@ -14,6 +14,14 @@ Halty syntax is based on [Hatena syntax](http://hatenadiary.g.hatena.ne.jp/keywo
 libraryDependencies += "com.krrrr38" %% "halty" % "0.1.2"
 ```
 
+or
+
+```scala
+resolvers += Opts.resolver.sonatypeSnapshots
+
+libraryDependencies += "com.krrrr38" %% "halty" % "0.1.3-SNAPSHOT"
+```
+
 NOTE: Now, support only Scala 2.11.x.
 
 ## Synopsys
