@@ -24,7 +24,7 @@ object MarkdownGenerator extends Generator[String, MarkdownGeneratorConfig] {
 
 class MarkdownGenerator(config: MarkdownGeneratorConfig) {
 
-  def generate(blocks: List[Block]): String = blocks.map(blockToMarkdown).mkString
+  def generate(blocks: List[Block]): String = blocks.map(blockToMarkdown).mkString("\n")
 
   private[this] def blockToMarkdown(block: Block): String = block match {
     case header: Header => headerToMarkdown(header)
@@ -63,13 +63,13 @@ class MarkdownGenerator(config: MarkdownGeneratorConfig) {
   private[this] def listToMarkdown(list: ListTag): String = {
     val indent = "  " * (list.level - 1)
     list match {
-      case ol: OL => ol.items.map(li => s"${indent}1. ${listitemToMarkdown(li)}").mkString
-      case ul: UL => ul.items.map(li => s"${indent}- ${listitemToMarkdown(li)}").mkString
+      case ol: OL => ol.items.map(li => s"${indent}1. ${listitemToMarkdown(li)}").mkString("\n")
+      case ul: UL => ul.items.map(li => s"${indent}- ${listitemToMarkdown(li)}").mkString("\n")
     }
   }
 
   private[this] def listitemToMarkdown(item: LI): String = item.nest match {
-    case Some(nestedList) => inlineToMarkdown(item.inline) + listToMarkdown(nestedList)
+    case Some(nestedList) => inlineToMarkdown(item.inline) + "\n" + listToMarkdown(nestedList)
     case None => inlineToMarkdown(item.inline)
   }
 

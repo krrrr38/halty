@@ -52,7 +52,6 @@ object HaltyBuild extends Build {
   )
 
   lazy val publishSettings = Seq(
-    isSnapshot := false,
     sonatypeProfileName := "com.krrrr38",
     pomExtra := {
       <url>http://github.com/krrrr38/halty</url>

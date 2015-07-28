@@ -26,6 +26,8 @@ class MarkdownGeneratorTest extends Specification {
           ==/("> text")
         generator.generate(List(BlockQuote(List(Paragraph(List(Inline("text")))), Some(HttpRawTitle("url", "title"))))) must
           ==/("> text\n> <cite>[title](url)</cite>")
+        generator.generate(List(BlockQuote(List(Paragraph(List(Inline("text")))), Some(HttpAutoTitle("url"))))) must
+          ==/("> text\n> <cite>[url](url)</cite>")
       }
       "ol list" in {
         generator.generate(List(OL(1, List(LI(Inline("text"), None))))) must

@@ -40,12 +40,8 @@ trait DefaultInlineConverter[A] extends InlineConverter[A] {
     val end = inlineText.length
     val buffer = ArrayBuffer.empty[A]
 
-    /**
-     * find match syntax. If multiple syntax regexex are matched, consider less start point.
-     * If they have same start points, the longer one is prefered.
-     * @param input
-     * @return
-     */
+    // find match syntax. If multiple syntax regexex are matched, consider less start point.
+    // If they have same start points, the longer one is prefered.
     def findMinStartSyntax(input: String): Option[(Match, Match => A)] =
       SYNTAXES.foldLeft(((end, 0), None): ((Int, Int), Option[(Match, Match => A)])) {
         case (((candStart, candEnd), cand), syntax) =>

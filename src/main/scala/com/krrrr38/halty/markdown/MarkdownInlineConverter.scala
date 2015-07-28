@@ -7,7 +7,7 @@ class MarkdownInlineConverter(val fetcher: Fetcher) extends DefaultInlineConvert
 
   def mail(address: String) = s"[$address](mailto:$address)"
 
-  def wrap(seq: Seq[String]) = seq.mkString("\n")
+  def wrap(seq: Seq[String]) = seq.mkString
 
   def image(url: String, maybeWidth: Option[String], maybeHeight: Option[String]) = (maybeWidth, maybeHeight) match {
     case (Some(width), Some(height)) => s"![]($url =${width}x${height})"
