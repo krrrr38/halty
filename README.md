@@ -3,8 +3,9 @@
 [![Build Status](https://secure.travis-ci.org/krrrr38/halty.png)](http://travis-ci.org/krrrr38/halty)
 [![codecov.io](http://codecov.io/github/krrrr38/halty/coverage.svg?branch=master)](http://codecov.io/github/krrrr38/halty?branch=master)
 [![Codacy Badge](https://www.codacy.com/project/badge/8379734cad1a4b069a7bd76e3620de57)](https://www.codacy.com/app/k-kaizu38/halty)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.11)
-[![License: MIT](http://img.shields.io/badge/license-MIT-orange.svg)](LICENSE)
+[![Maven Central 2.11.x](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.11)
+[![Maven Central 2.10.x](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.10/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.krrrr38/halty_2.10)
+[![License: MIT](http://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Text-to-HTML converter with Halty syntax.
 
@@ -23,8 +24,6 @@ resolvers += Opts.resolver.sonatypeSnapshots
 
 libraryDependencies += "com.krrrr38" %% "halty" % "0.1.3-SNAPSHOT"
 ```
-
-NOTE: Now, support only Scala 2.11.x.
 
 ## Synopsys
 

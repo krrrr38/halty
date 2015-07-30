@@ -27,7 +27,7 @@ trait HaltyParser extends RegexParsers {
 
   // blockquote ::= ">" "httpinline"? ">\n" {block}+ "<<"
   private[halty] def blockQuote: Parser[BlockQuote] = ">" ~> http.? ~ ">\n" ~ """([\S\s]*?)(?=\n<<)""".r <~ "\n<<" ^^ {
-    case maybeHttp ~ _ ~ blocktext => parseAll(block *, blocktext + "\n") match {
+    case maybeHttp ~ _ ~ blocktext => parseAll(block.*, blocktext + "\n") match {
       case Success(blocks, _) => BlockQuote(blocks, maybeHttp)
       case NoSuccess(msg, next) => throw new IllegalStateException(s"BLOCKQUOTE: $msg : Line ${next.pos.line}, Column ${next.pos.column}")
     }
@@ -66,7 +66,7 @@ trait HaltyParser extends RegexParsers {
 
   // pre ::= ">|\n" {block}+ "|<"
   private[halty] def pre: Parser[Pre] = ">|\n" ~> """([\S\s]*?)(?=\n\|<)""".r <~ "\n|<" ^^ {
-    case blocktext => parseAll(block *, blocktext + "\n") match {
+    case blocktext => parseAll(block.*, blocktext + "\n") match {
       case Success(blocks, _) => Pre(blocks)
       case NoSuccess(msg, next) => throw new IllegalStateException(s"PRE: $msg : Line ${next.pos.line}, Column ${next.pos.column}")
     }

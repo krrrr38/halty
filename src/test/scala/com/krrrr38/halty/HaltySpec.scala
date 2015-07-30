@@ -2,7 +2,7 @@ package com.krrrr38.halty
 
 import org.scalacheck.{ Arbitrary, Gen }
 import org.specs2.ScalaCheck
-import org.specs2.matcher.ParserMatchers
+import org.specs2.matcher.{ ExpectedParsedResult, ParserMatchers }
 import org.specs2.mutable.Specification
 
 class HaltyCheck extends Specification with ScalaCheck {
@@ -51,17 +51,17 @@ class HaltySpec extends Specification with ParserMatchers {
   "body" should {
     "match with only texts" in {
       Halty.body must succeedOn("aaa\nbbb\n")
-        .withResult(List(
-          Paragraph(List(Inline("aaa"))), Paragraph(List(Inline("bbb")))))
+        .withResult(ExpectedParsedResult(List(
+          Paragraph(List(Inline("aaa"))), Paragraph(List(Inline("bbb"))))))
     }
     "match with empty lines" in {
       Halty.body must succeedOn("aaa\n\n\n")
-        .withResult(List(
-          Paragraph(List(Inline("aaa"))), Empty, Empty))
+        .withResult(ExpectedParsedResult(List(
+          Paragraph(List(Inline("aaa"))), Empty, Empty)))
     }
     "match with space line" in {
       Halty.body must succeedOn("  \n")
-        .withResult(List(Paragraph(List(Inline("  ")))))
+        .withResult(ExpectedParsedResult(List(Paragraph(List(Inline("  "))))))
     }
     "match with multiple contents" in {
       val text =
@@ -131,7 +131,7 @@ class HaltySpec extends Specification with ParserMatchers {
         Paragraph(List(Inline("simple words"))),
         Paragraph(List(Inline("simple words")))
       )
-      Halty.body must succeedOn(text).withResult(expected)
+      Halty.body must succeedOn(text).withResult(ExpectedParsedResult(expected))
     }
     "fail with last word is not break line (Halty.apply help this)" in {
       Halty.body must failOn("aa\n ")

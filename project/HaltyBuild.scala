@@ -22,8 +22,10 @@ object HaltyBuild extends Build {
       Seq(
         name := "halty",
         organization := "com.krrrr38",
-        version := "0.1.3-SNAPSHOT",
+        version := "0.1.3",
+        description := "Text-to-HTML converter with Halty syntax.",
         scalaVersion := "2.11.7",
+        crossScalaVersions := scalaVersion.value :: "2.10.5" :: Nil,
         scalacOptions ++= (
           "-deprecation" ::
             "-feature" ::
@@ -39,14 +41,22 @@ object HaltyBuild extends Build {
         },
         scalacOptions in Test ++= Seq("-Yrangepos"),
         shellPrompt := { state => s"$CYAN${name.value}$RESET > " },
-        libraryDependencies ++= Seq(
-          "org.scala-lang.modules" %% "scala-parser-combinators" % Version.scalaLangModule,
-          "org.scala-lang.modules" %% "scala-xml" % Version.scalaLangModule,
-          "org.jsoup" % "jsoup" % Version.jsoup,
-          "org.specs2" %% "specs2-core" % Version.specs2 % "test",
-          "org.specs2" %% "specs2-matcher-extra" % Version.specs2 % "test",
-          "org.specs2" %% "specs2-scalacheck" % Version.specs2 % "test"
-        ),
+        libraryDependencies := {
+          val commonDependencies = Seq(
+            "org.jsoup" % "jsoup" % Version.jsoup,
+            "org.specs2" %% "specs2-core" % Version.specs2 % "test",
+            "org.specs2" %% "specs2-matcher-extra" % Version.specs2 % "test",
+            "org.specs2" %% "specs2-scalacheck" % Version.specs2 % "test"
+          )
+          CrossVersion.partialVersion(scalaVersion.value) match {
+            case Some((2, scalaMajor)) if scalaMajor >= 11 =>
+              libraryDependencies.value ++ commonDependencies ++ Seq(
+                "org.scala-lang.modules" %% "scala-parser-combinators" % Version.scalaLangModule,
+                "org.scala-lang.modules" %% "scala-xml" % Version.scalaLangModule
+              )
+            case _ => libraryDependencies.value ++ commonDependencies
+          }
+        },
         resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
       )
   )
