@@ -22,7 +22,7 @@ object HaltyBuild extends Build {
       Seq(
         name := "halty",
         organization := "com.krrrr38",
-        version := "0.1.3",
+        version := "0.1.4-SNAPSHOT",
         description := "Text-to-HTML converter with Halty syntax.",
         scalaVersion := "2.11.7",
         crossScalaVersions := scalaVersion.value :: "2.10.5" :: Nil,

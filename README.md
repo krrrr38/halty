@@ -14,7 +14,7 @@ Halty syntax is based on [Hatena syntax](http://hatenadiary.g.hatena.ne.jp/keywo
 ## Usage
 
 ```scala
-libraryDependencies += "com.krrrr38" %% "halty" % "0.1.2"
+libraryDependencies += "com.krrrr38" %% "halty" % "0.1.3"
 ```
 
 or
@@ -22,7 +22,7 @@ or
 ```scala
 resolvers += Opts.resolver.sonatypeSnapshots
 
-libraryDependencies += "com.krrrr38" %% "halty" % "0.1.3-SNAPSHOT"
+libraryDependencies += "com.krrrr38" %% "halty" % "0.1.4-SNAPSHOT"
 ```
 
 ## Synopsys
