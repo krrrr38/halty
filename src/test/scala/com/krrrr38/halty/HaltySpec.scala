@@ -20,7 +20,7 @@ class HaltyCheck extends Specification with ScalaCheck {
   def anyinput = prop { (input: String) =>
     Halty(input) must not be empty
   }
-    .set(minTestsOk = 300, maxSize = 200, workers = 5)
+    .set(minTestsOk = 500, maxSize = 200, workers = 5)
     .setArbitrary(Arbitrary(haltyStringsGen))
 }
 
@@ -45,6 +45,15 @@ class HaltySpec extends Specification with ParserMatchers {
     }
     "success with empty string" in {
       Halty("") must_== List(Empty)
+    }
+    "success with failed string which found by HaltyCheck" in {
+      foreach(List(
+        ">|\n\n|<a",
+        ">||\n\n||<a",
+        ">>\n\n<<a"
+      )) { input =>
+        Halty(input) must not be empty
+      }
     }
   }
 

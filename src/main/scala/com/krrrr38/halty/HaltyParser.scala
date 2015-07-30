@@ -25,8 +25,8 @@ trait HaltyParser extends RegexParsers {
     }
   }
 
-  // blockquote ::= ">" "httpinline"? ">\n" {block}+ "<<"
-  private[halty] def blockQuote: Parser[BlockQuote] = ">" ~> http.? ~ ">\n" ~ """([\S\s]*?)(?=\n<<)""".r <~ "\n<<" ^^ {
+  // blockquote ::= ">" "httpinline"? ">\n" {block}+ "<<" ignore
+  private[halty] def blockQuote: Parser[BlockQuote] = ">" ~> http.? ~ ">\n" ~ """([\S\s]*?)(?=\n<<)""".r <~ "\n<<" ~ "[^\\n]*".r ^^ {
     case maybeHttp ~ _ ~ blocktext => parseAll(block.*, blocktext + "\n") match {
       case Success(blocks, _) => BlockQuote(blocks, maybeHttp)
       case NoSuccess(msg, next) => throw new IllegalStateException(s"BLOCKQUOTE: $msg : Line ${next.pos.line}, Column ${next.pos.column}")
@@ -59,13 +59,13 @@ trait HaltyParser extends RegexParsers {
     case _ ~ inline ~ nestList => LI(inline.getOrElse(Inline("")), nestList)
   }
 
-  // superpre ::= ">|" "[^\n\|]+".r? "|\n" "([\s\S]*?)(?=\n\|\|<)".r "||<"
-  private[halty] def superPre: Parser[SuperPre] = ">|" ~> """[^\n\|]+""".r.? ~ "|\n" ~ """([\s\S]*?)(?=\n\|\|<)""".r <~ "\n||<" ^^ {
+  // superpre ::= ">|" "[^\n\|]+".r? "|\n" "([\s\S]*?)(?=\n\|\|<)".r "||<" ignore
+  private[halty] def superPre: Parser[SuperPre] = ">|" ~> """[^\n\|]+""".r.? ~ "|\n" ~ """([\s\S]*?)(?=\n\|\|<)""".r <~ "\n||<" ~ "[^\\n]*".r ^^ {
     case maybeLang ~ _ ~ content => SuperPre(content, maybeLang)
   }
 
-  // pre ::= ">|\n" {block}+ "|<"
-  private[halty] def pre: Parser[Pre] = ">|\n" ~> """([\S\s]*?)(?=\n\|<)""".r <~ "\n|<" ^^ {
+  // pre ::= ">|\n" {block}+ "|<" ignore
+  private[halty] def pre: Parser[Pre] = ">|\n" ~> """([\S\s]*?)(?=\n\|<)""".r <~ "\n|<" ~ "[^\\n]*".r ^^ {
     case blocktext => parseAll(block.*, blocktext + "\n") match {
       case Success(blocks, _) => Pre(blocks)
       case NoSuccess(msg, next) => throw new IllegalStateException(s"PRE: $msg : Line ${next.pos.line}, Column ${next.pos.column}")
